@@ -4,9 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Eine Tabelle für beide Typen
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-public abstract class User {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +15,17 @@ public abstract class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String userType= "CUSTOMER";  // 'firma' oder 'fahrer'
+
+    public User() {}
+
+    public User(String email, String password, String userType) {
+        this.email = email;
+        this.password = password;
+        this.userType = userType;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -25,4 +34,7 @@ public abstract class User {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getUserType() { return userType; }
+    public void setUserType(String userType) { this.userType = userType; }
 }

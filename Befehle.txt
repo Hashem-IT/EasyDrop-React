@@ -1,0 +1,17 @@
+Backend starten (mvn spring-boot:run)
+
+Frontend starten (npm start)
+    npm install react-router-dom
+
+- nach jede Änderungen in  Back
+    mvn clean install
+    mvn spring-boot:run
+
+
+Docker:
+    docker run --name postgres_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=meinpasswort -e POSTGRES_DB=demo -p 5432:5432 -d postgres
+    docker ps
+    docker start easydrop-db
+
+
+

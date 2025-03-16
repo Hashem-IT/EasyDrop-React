@@ -1,53 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Richtige Eltern-POM -->
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>EasyDrop</artifactId>
-        <version>1.0.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.2</version>
+        <relativePath/> <!-- Verhindert Konflikte -->
     </parent>
 
+    <groupId>com.example</groupId>
     <artifactId>backend</artifactId>
+    <version>1.0.0</version>
+    <name>backend</name>
+    <description>Backend für EasyDrop</description>
 
     <dependencies>
         <!-- Spring Boot Web Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.5.2</version>  <!-- Version hinzugefügt -->
         </dependency>
 
-        <!-- Spring Boot Data JPA Starter -->
+        <!-- Spring Boot Security Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Spring Security Crypto für Passwort-Hashing -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>2.5.2</version>  <!-- Version hinzugefügt -->
         </dependency>
 
-        <!-- PostgreSQL JDBC Driver -->
+        <!-- PostgreSQL Treiber -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.20</version>  <!-- Version hinzugefügt -->
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Lombok für automatische Getter/Setter -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>  <!-- Stelle sicher, dass eine Version angegeben ist -->
             <scope>provided</scope>
         </dependency>
-
-
 
         <!-- Spring Boot Test Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.5.2</version>  <!-- Version hinzugefügt -->
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -64,21 +78,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.2</version>  <!-- Version hinzugefügt -->
             </plugin>
 
-            <!-- Exec-Maven-Plugin für das Frontend (optional) -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>  <!-- Version hinzugefügt -->
-                <configuration>
-                    <executable>npm</executable>
-                    <arguments>
-                        <argument>install</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
+            <!-- Compiler Plugin für Java 11 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

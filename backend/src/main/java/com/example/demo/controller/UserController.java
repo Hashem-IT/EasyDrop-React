@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Fahrer;
-import com.example.demo.model.Firma;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +11,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -22,17 +23,14 @@ public class UserController {
     }
 
     @GetMapping("/{email}")
-    public Optional<User> getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        Optional<User> user = userService.findByEmail(email);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/fahrer")
-    public User createFahrer(@RequestBody Fahrer fahrer) {
-        return userService.saveUser(fahrer);
-    }
-
-    @PostMapping("/firma")
-    public User createFirma(@RequestBody Firma firma) {
-        return userService.saveUser(firma);
+    @PostMapping
+    public ResponseEntity<String> saveUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return ResponseEntity.ok("Benutzer gespeichert!");
     }
 }
